@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Wordle (One Page)</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #game-board {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tile {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #ccc;
+      line-height: 60px;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .correct {
+      background-color: #6aaa64;
+      color: white;
+    }
+
+    .present {
+      background-color: #c9b458;
+      color: white;
+    }
+
+    .absent {
+      background-color: #787c7e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mini Wordle</h1>
+  <div id="game-board"></div>
+  <input type="text" id="guess-input" maxlength="5" />
+  <button onclick="submitGuess()">Submit</button>
+  <p id="message"></p>
+
+  <script>
+    const secretWord = "PLANT";
+    const maxAttempts = 6;
+    let currentAttempt = 0;
+
+    function createRow(guess) {
+      const row = document.createElement("div");
+      row.classList.add("row");
+
+      for (let i = 0; i < 5; i++) {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+
+        const letter = guess[i];
+        tile.textContent = letter;
+
+        if (letter === secretWord[i]) {
+          tile.classList.add("correct");
+        } else if (secretWord.includes(letter)) {
+          tile.classList.add("present");
+        } else {
+          tile.classList.add("absent");
+        }
+
+        row.appendChild(tile);
+      }
+
+      document.getElementById("game-board").appendChild(row);
+    }
+
+    function submitGuess() {
+      const input = document.getElementById("guess-input");
+      const guess = input.value.toUpperCase();
+
+      if (guess.length !== 5) {
+        document.getElementById("message").textContent = "Enter a 5-letter word.";
+        return;
+      }
+
+      if (currentAttempt >= maxAttempts) {
+        document.getElementById("message").textContent = `Game over! The word was ${secretWord}.`;
+        return;
+      }
+
+      createRow(guess);
+      currentAttempt++;
+
+      if (guess === secretWord) {
+        document.getElementById("message").textContent = "🎉 You got it!";
+      } else if (currentAttempt === maxAttempts) {
+        document.getElementById("message").textContent = `Out of tries! The word was ${secretWord}.`;
+      }
+
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

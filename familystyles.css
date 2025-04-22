@@ -1,0 +1,41 @@
+.body {
+    background-color: rgb(216, 228, 252);
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(107, 28, 93);
+}
+
+.header {
+    text-align: center;
+}
+
+.common {
+    position:absolute
+}
+
+.dad {
+    top: 200px;
+    left: 5px;
+    right: 500px;
+    height: 400px;
+}
+
+.mom {
+    top: 200px;
+    right: 5px;
+    left: 500px;
+    height: 400px;
+}
+
+.anya {
+    top: 605px;
+    left: 5px;
+    right: 500px;
+    height: 400px;
+}
+
+.dane {
+    top: 605px;
+    right: 5px;
+    left: 500px;
+    height: 400px;
+}
